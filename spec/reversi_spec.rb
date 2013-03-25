@@ -13,6 +13,11 @@ describe Board do
     end
   end
   describe "#place_piece" do
+    it "does not allow moves outside of the board" do
+      expect do
+        board.place_piece(piece, [9,9])
+      end.to raise_error("Out of bounds.")
+    end
     it "places a piece at given location" do
       board.place_piece(piece, [0,0])
       board.board[0][0].should == piece
