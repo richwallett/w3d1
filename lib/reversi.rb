@@ -22,6 +22,10 @@ class Board
     return nil if piece.nil?
     return piece.color
   end
+
+  def valid_moves
+    first_four = [3,4].product([4,3]).select{ |el| piece_at(el).nil? }
+  end
 end
 
 class Piece

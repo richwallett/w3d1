@@ -36,6 +36,13 @@ describe Board do
     end
   end
 
+  describe "#valid_move?" do
+    it "requires that the center four pieces are used first" do
+      first_four = [3,4].product([4,3])
+      board.valid_moves.should be_eql first_four
+    end
+  end
+
 end
 
 describe Piece do
