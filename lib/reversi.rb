@@ -16,6 +16,7 @@ class Board
     raise "Out of bounds." if out_of_bounds?(position)
     @board[position[0]][position[1]] = piece
   end
+
   def piece_at(position)
     piece = @board[position[0]][position[1]]
     return nil if piece.nil?
@@ -24,6 +25,14 @@ class Board
 end
 
 class Piece
+  attr_reader :color
+  def initialize(color)
+    @color = color
+  end
+
+  def flip_color
+    @color = (@color == :black ? :white : :black)
+  end
 end
 
 class Game

@@ -4,6 +4,7 @@ require 'rspec'
 describe Board do
   subject(:board) {Board.new}
   let(:piece) {double("Piece", :color => :black)}
+
   describe "#make_board" do
     it "creates an 8x8 array" do
       board.board.each do |el|
@@ -12,6 +13,7 @@ describe Board do
       board.board.length.should == 8
     end
   end
+
   describe "#place_piece" do
     it "does not allow moves outside of the board" do
       expect do
@@ -23,6 +25,7 @@ describe Board do
       board.board[0][0].should == piece
     end
   end
+
   describe "#piece_at" do
     it "returns nil if no piece" do
       board.piece_at([0,0]).should be_nil
@@ -32,9 +35,24 @@ describe Board do
       board.piece_at([0,0]).should == :black
     end
   end
+
 end
 
 describe Piece do
+  subject(:piece) {Piece.new(:black)}
+  describe "#initialize" do
+    its(:color) {should == :black}
+  end
+
+  describe "#flip_color" do
+    it "flips color when called" do
+      piece.color.should == :black
+      piece.flip_color
+      piece.color.should == :white
+      piece.flip_color
+      piece.color.should == :black
+    end
+  end
 end
 
 describe Game do
