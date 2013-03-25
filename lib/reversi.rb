@@ -39,6 +39,10 @@ class Board
     color == :black ? :white : :black
   end
 
+  def over?
+    valid_moves(:white).empty? && valid_moves(:black).empty?
+  end
+
   def flip_pieces(start, finish)
     @vectors.each do |vector|
       flank = search_one_direction(start, vector, piece_at(start))
@@ -94,4 +98,5 @@ class Piece
 end
 
 class Game
+
 end
