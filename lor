@@ -1,0 +1,16 @@
+F
+
+Failures:
+
+  1) Board#initialize initializes the board
+     Failure/Error: board.should_receive(:make_board)
+     NameError:
+       undefined local variable or method `board' for #<RSpec::Core::ExampleGroup::Nested_1::Nested_1:0x007fa0732d9018>
+     # ./spec/reversi_spec.rb:9:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00043 seconds
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/reversi_spec.rb:8 # Board#initialize initializes the board
