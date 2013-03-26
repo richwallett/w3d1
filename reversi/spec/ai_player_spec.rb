@@ -18,5 +18,9 @@ describe AIPlayer do
       aiplayer.color.should == :black
     end
   end
-
+  describe "#take_turn" do
+    it "should choose the move that flips the most pieces" do
+      aiplayer.take_turn.should == [5,5]
+    end
+  end
 end
