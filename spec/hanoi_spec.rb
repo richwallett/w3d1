@@ -5,6 +5,7 @@ describe Hanoi do
   subject(:hanoi) {Hanoi.new(5)}
 
   describe "#initialize" do
+    #REV: This is some nice syntax. Didn't know you could do this.
     its(:tower_one) {should have(5).discs}
     its(:tower_two) {should be_empty}
     its(:tower_three) {should be_empty}

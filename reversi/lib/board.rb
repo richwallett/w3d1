@@ -4,10 +4,12 @@ class Board
   attr_reader :board
   def initialize
     @board = make_board
+    #REV: Cool way to make vectors. Nice and clean
     @vectors = [-1,0,1].product([-1,0,1]).reject {|position| position == [0,0]}
   end
 
   def make_board
+    #REV: Do you need have a make_board method? You could shift the Array.new.... up to initialize
     Array.new(8) { Array.new(8) }
   end
 

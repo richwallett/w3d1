@@ -1,3 +1,4 @@
+#REV: Nice clean code, easy to read. I like how you parameterized the number of discs
 class Hanoi
   attr_reader :tower_one, :tower_two, :tower_three
   def initialize(discs)
