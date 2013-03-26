@@ -1,7 +1,5 @@
 require_relative 'board'
 require_relative 'player'
-require_relative 'human_player'
-require_relative 'ai_player'
 require_relative 'piece'
 require 'colorize'
 
@@ -33,7 +31,7 @@ class Game
       @turn = @board.opp_color(@turn)
     end
     print_winner(@board.winner)
-      print_board
+    print_board
   end
 
   def print_winner(winner)
