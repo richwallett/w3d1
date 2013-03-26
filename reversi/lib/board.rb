@@ -1,3 +1,5 @@
+require './piece'
+
 class Board
   attr_reader :board
   def initialize
@@ -94,18 +96,3 @@ class Board
 
 end
 
-
-class Piece
-  attr_reader :color
-  def initialize(color)
-    @color = color
-  end
-
-  def flip_color
-    @color = (@color == :black ? :white : :black)
-  end
-end
-
-class Game
-
-end
