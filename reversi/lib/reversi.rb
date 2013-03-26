@@ -1,13 +1,15 @@
 require_relative 'board'
 require_relative 'player'
 require_relative 'human_player'
+require_relative 'ai_player'
 require_relative 'piece'
+require 'colorize'
 
 class Game
-  def initialize(white = :ai, black = :ai)
+  def initialize(red = :human, green = :human)
     @board = Board.new
-    @white_player = setup_player(white, :white)
-    @black_player = setup_player(black, :black)
+    @red_player = setup_player(red, :red)
+    @green_player = setup_player(green, :green)
   end
 
   def setup_player(type, color)
@@ -18,19 +20,20 @@ class Game
   end
 
   def play
-    turn = :white
+    @turn = :red
     until @board.over?
       print_board
-      puts "#{turn.capitalize} player's turn:"
-      if @board.valid_moves(turn).empty?
-        puts "No valid moves for #{turn} player."
+      puts "#{@turn.capitalize} player's turn:"
+      if @board.valid_moves(@turn).empty?
+        puts "No valid moves for #{@turn} player."
       else
-        move = take_turn(turn)
-        @board.place_piece(Piece.new(turn), move)
+        move = take_turn
+        @board.place_piece(Piece.new(@turn), move)
       end
-      turn = @board.opp_color(turn)
+      @turn = @board.opp_color(@turn)
     end
     print_winner(@board.winner)
+      print_board
   end
 
   def print_winner(winner)
@@ -42,27 +45,37 @@ class Game
   end
 
   def print_board
-    print "   "
+    possible_moves = @board.valid_moves(@turn) unless @board.over?
+    print "    "
     puts ('a'..'h').to_a.join('  ')
     8.times do |row|
       print "#{row+1} "
       8.times do |col|
         square = @board.board[row][col]
         if square.nil?
-          print "   "
+          if !possible_moves.nil? && possible_moves.include?([row,col])
+            print " \u263B ".blue.blink
+          else
+            print "   "
+          end
         else
-          print " X " if square.color == :black
-          print " O " if square.color == :white
+          print " \u263B ".green if square.color == :green
+          print " \u263B ".red if square.color == :red
         end
+      end
+      case row
+      when 0 then print "  Score:"
+      when 1 then print "  Red: #{@board.pieces_of(:red).length}".red
+      when 2 then print "  Green: #{@board.pieces_of(:green).length}".green
       end
       puts
     end
   end
 
-  def take_turn(turn)
-    case turn
-    when :white then @white_player.take_turn
-    when :black then @black_player.take_turn
+  def take_turn
+    case @turn
+    when :red then @red_player.take_turn
+    when :green then @green_player.take_turn
     end
   end
 end

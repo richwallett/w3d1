@@ -1,7 +1,7 @@
 class HumanPlayer < Player
   LETTERS = ('a'..'h').to_a.map {|letter| letter.upcase }
   def take_turn
-    puts "Possible moves: #{display_valid_moves}"
+    puts "Possible moves (shown in blue): #{display_valid_moves}"
     puts "Where would you like to place a piece? ex. A5"
     input = gets.chomp
     converted_input = convert_input(input)

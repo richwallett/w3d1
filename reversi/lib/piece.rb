@@ -5,6 +5,6 @@ class Piece
   end
 
   def flip_color
-    @color = (@color == :black ? :white : :black)
+    @color = (@color == :green ? :red : :green)
   end
 end

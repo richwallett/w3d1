@@ -1,9 +1,13 @@
+require_relative 'player'
+
 class AIPlayer < Player
 
   def take_turn
     ai_moves = @board.valid_moves(@color)
     best_score = 0
     best_move = nil
+    first_four = @board.first_four_moves
+    return first_four.sample unless first_four.empty?
     ai_moves.each do |move|
       current_score = 0
       @board.vectors.each do |vector|
@@ -21,6 +25,7 @@ class AIPlayer < Player
         end
       end
     end
+    p "#{best_move} is the best move"
     best_move
   end
 

@@ -16,6 +16,7 @@ class Board
   end
 
   def place_piece(piece, position)
+    p position
     raise "Out of bounds." if out_of_bounds?(position)
     @board[position[0]][position[1]] = piece
     if first_four_moves.empty?
@@ -33,7 +34,7 @@ class Board
     return piece.color
   end
 
-  def piece_of(color)
+  def pieces_of(color)
     pieces_of_color = []
     @board.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
@@ -45,11 +46,11 @@ class Board
   end
 
   def opp_color(color)
-    color == :black ? :white : :black
+    color == :green ? :red : :green
   end
 
   def over?
-    valid_moves(:white).empty? && valid_moves(:black).empty?
+    valid_moves(:red).empty? && valid_moves(:green).empty?
   end
 
   def flip_pieces(start, finish)
@@ -73,7 +74,7 @@ class Board
   def valid_moves(color)
     valid_moves = first_four_moves
     if valid_moves.empty?
-      piece_of(color).each do |position|
+      pieces_of(color).each do |position|
         vectors_of_interest = []
         @vectors.each do |vector|
           adjacent = [position[0]+vector[0], position[1]+vector[1]]
@@ -107,9 +108,9 @@ class Board
   end
 
   def winner
-    case piece_of(:black).length <=> piece_of(:white).length
-    when 1 then :black
-    when -1 then :white
+    case pieces_of(:green).length <=> pieces_of(:red).length
+    when 1 then :green
+    when -1 then :red
     when 0 then :draw
     end
   end
