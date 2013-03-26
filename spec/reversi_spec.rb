@@ -77,6 +77,23 @@ describe Board do
       board.over?.should be_true
     end
   end
+
+  describe "#winner" do
+    it "returns the color that has the most pieces on the board" do
+      first_four.each { |position| board.place_piece(piece, position) }
+      board.winner.should == :black
+    end
+    it "returns 'draw' if players have the same amount of pieces" do
+      board.place_piece(Piece.new(:white), [3,3])
+      board.place_piece(Piece.new(:white), [4,4])
+      board.place_piece(Piece.new(:black), [3,4])
+      board.place_piece(Piece.new(:black), [4,3])
+      board.winner.should == :draw
+    end
+  end
+
+
+
 end
 
 describe Piece do

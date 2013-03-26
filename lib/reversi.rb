@@ -83,6 +83,15 @@ class Board
     return nil if out_of_bounds?(current_position)
     return current_position
   end
+
+  def winner
+    case piece_of(:black).length <=> piece_of(:white).length
+    when 1 then :black
+    when -1 then :white
+    when 0 then :draw
+    end
+  end
+
 end
 
 
