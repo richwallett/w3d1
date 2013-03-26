@@ -1,4 +1,4 @@
-require 'reversi'
+require 'piece'
 require 'rspec'
 
 

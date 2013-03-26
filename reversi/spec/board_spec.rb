@@ -1,5 +1,6 @@
-require 'reversi'
+require 'board'
 require 'rspec'
+
 
 describe Board do
   subject(:board) {Board.new}
