@@ -16,7 +16,6 @@ class Board
   end
 
   def place_piece(piece, position)
-    p position
     raise "Out of bounds." if out_of_bounds?(position)
     @board[position[0]][position[1]] = piece
     if first_four_moves.empty?
@@ -75,18 +74,7 @@ class Board
     valid_moves = first_four_moves
     if valid_moves.empty?
       pieces_of(color).each do |position|
-        vectors_of_interest = []
-        @vectors.each do |vector|
-          adjacent = [position[0]+vector[0], position[1]+vector[1]]
-          next if out_of_bounds?(adjacent)
-          if piece_at(adjacent) == opp_color(color)
-            until out_of_bounds?(adjacent) || piece_at(adjacent).nil? || piece_at(adjacent) == color
-              adjacent[0] += vector[0]
-              adjacent[1] += vector[1]
-            end
-            vectors_of_interest << vector if !out_of_bounds?(adjacent) && piece_at(adjacent).nil?
-          end
-        end
+        vectors_of_interest = possible_flanks(position, color)
         vectors_of_interest.each do |vector|
           search = search_one_direction(position, vector, nil)
           valid_moves << search unless search.nil?
@@ -94,6 +82,22 @@ class Board
       end
     end
     valid_moves.uniq
+  end
+
+  def possible_flanks(position,color)
+    vectors_of_interest = []
+    @vectors.each do |vector|
+      adjacent = [position[0]+vector[0], position[1]+vector[1]]
+      next if out_of_bounds?(adjacent)
+      if piece_at(adjacent) == opp_color(color)
+        until out_of_bounds?(adjacent) || piece_at(adjacent).nil? || piece_at(adjacent) == color
+          adjacent[0] += vector[0]
+          adjacent[1] += vector[1]
+        end
+        vectors_of_interest << vector if !out_of_bounds?(adjacent) && piece_at(adjacent).nil?
+      end
+    end
+    vectors_of_interest
   end
 
   def search_one_direction(position, vector, color)

@@ -43,8 +43,8 @@ end
 class HumanPlayer < Player
   LETTERS = ('a'..'h').to_a.map {|letter| letter.upcase }
   def take_turn
-    puts "Where would you like to place a piece? ex. A5"
-    puts "Possible moves are shown in blue."
+    puts "Where would you like to place a piece?"
+    puts "Possible moves are shown in yellow."
     converted_input = convert_input(gets.chomp)
     until @board.valid_moves(@color).include?(converted_input)
       puts "Please enter a valid move"

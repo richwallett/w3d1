@@ -4,7 +4,7 @@ require 'rspec'
 
 describe Board do
   subject(:board) {Board.new}
-  let(:piece) {Piece.new(:black)}
+  let(:piece) {Piece.new(:green)}
   let (:first_four) {[3,4].product([4,3])}
 
   describe "#make_board" do
@@ -34,41 +34,41 @@ describe Board do
     end
     it "returns color of piece if piece present" do
       board.place_piece(piece, [0,0])
-      board.piece_at([0,0]).should == :black
+      board.piece_at([0,0]).should == :green
     end
   end
 
   describe "#valid_moves" do
     it "requires that the center four pieces are used first" do
-      board.valid_moves(:black).should be_eql first_four
+      board.valid_moves(:green).should be_eql first_four
     end
     it "returns 3 positions if one piece has been placed" do
       first_four.reject! { |position| position == [4,4]}
       board.place_piece(piece, [4,4])
-      board.valid_moves(:black).should be_eql first_four
+      board.valid_moves(:green).should be_eql first_four
     end
     it "returns array of positions with flanking piece" do
       first_four.each { |position| board.place_piece(piece, position) }
-      board.place_piece(Piece.new(:white), [2,2])
-      board.valid_moves(:white).should be_eql [[5,5]]
+      board.place_piece(Piece.new(:red), [2,2])
+      board.valid_moves(:red).should be_eql [[5,5]]
 
     end
     it "returns an empty array if no valid moves" do
       first_four.each { |position| board.place_piece(piece, position) }
-      board.valid_moves(:white).should be_empty
+      board.valid_moves(:red).should be_empty
     end
   end
 
   describe "#flip_pieces" do
     it "flips all pieces between two positions" do
-      board.place_piece(Piece.new(:white), [3,3])
-      board.place_piece(Piece.new(:white), [4,4])
-      board.place_piece(Piece.new(:black), [3,4])
-      board.place_piece(Piece.new(:black), [4,3])
-      board.place_piece(Piece.new(:black), [2,2])
-      board.place_piece(Piece.new(:black), [5,5])
+      board.place_piece(Piece.new(:red), [3,3])
+      board.place_piece(Piece.new(:red), [4,4])
+      board.place_piece(Piece.new(:green), [3,4])
+      board.place_piece(Piece.new(:green), [4,3])
+      board.place_piece(Piece.new(:green), [2,2])
+      board.place_piece(Piece.new(:green), [5,5])
       board.flip_pieces([2,2], [5,5])
-      2.upto(5).each {|n| board.piece_at([n,n]).should == :black}
+      2.upto(5).each {|n| board.piece_at([n,n]).should == :green}
     end
   end
 
@@ -82,13 +82,13 @@ describe Board do
   describe "#winner" do
     it "returns the color that has the most pieces on the board" do
       first_four.each { |position| board.place_piece(piece, position) }
-      board.winner.should == :black
+      board.winner.should == :green
     end
     it "returns 'draw' if players have the same amount of pieces" do
-      board.place_piece(Piece.new(:white), [3,3])
-      board.place_piece(Piece.new(:white), [4,4])
-      board.place_piece(Piece.new(:black), [3,4])
-      board.place_piece(Piece.new(:black), [4,3])
+      board.place_piece(Piece.new(:red), [3,3])
+      board.place_piece(Piece.new(:red), [4,4])
+      board.place_piece(Piece.new(:green), [3,4])
+      board.place_piece(Piece.new(:green), [4,3])
       board.winner.should == :draw
     end
   end
