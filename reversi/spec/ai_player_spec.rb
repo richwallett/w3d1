@@ -3,6 +3,8 @@ require 'player'
 require 'board'
 
 describe AIPlayer do
+  #REV: You could use a double for the board rather then making
+  #A new board object.
   let(:board) {Board.new}
   subject(:aiplayer) {AIPlayer.new(board, :green)}
   before(:each) do

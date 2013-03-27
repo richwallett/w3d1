@@ -1,6 +1,8 @@
 class Player
   attr_reader :color
 
+  #REV: Does the player need to have a copy off the board? 
+  #Maybe it could just get passed to methods that need it?
   def initialize(board, color)
     @board, @color = board, color
   end

@@ -46,6 +46,8 @@ class Game
     end
   end
 
+  #REV: Maybe this should have been a board method?
+  #Looks really awesome though. Good job!!
   def print_board
     system("clear")
     possible_moves = @board.valid_moves(@turn) unless @board.over?
