@@ -46,8 +46,8 @@ class Game
     end
   end
 
-  def print_board
-    system("clear")
+  def print_board #REV: I don't know what the hell
+    system("clear") #REV: half of this is but I bet it's pretty
     possible_moves = @board.valid_moves(@turn) unless @board.over?
     print_border_letters
     8.times do |row|
@@ -73,7 +73,7 @@ class Game
     print LETTERS.join('   ').colorize(:color => :cyan, :background => :black)
     puts "  ".colorize(:color => :cyan, :background => :black)
   end
-  def print_scoreboard(row)
+  def print_scoreboard(row) #REV: wow
       case row
       when 0 then print " " + " Score:".ljust(12).on_blue
       when 1 then print " " + " Red: #{@board.pieces_of(:red).length}".ljust(12).on_red

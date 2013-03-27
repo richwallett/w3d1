@@ -5,7 +5,7 @@ require 'board'
 describe AIPlayer do
   let(:board) {Board.new}
   subject(:aiplayer) {AIPlayer.new(board, :green)}
-  before(:each) do
+  before(:each) do #REV: Red and green? Rebels.
     board.place_piece(Piece.new(:red), [3,3])
     board.place_piece(Piece.new(:red), [4,4])
     board.place_piece(Piece.new(:green), [3,4])
@@ -14,7 +14,7 @@ describe AIPlayer do
   describe "#initialize" do
     it "knows what color it is" do
       aiplayer.color.should == :green
-    end
+    end #REV: perhaps too simplistic a test?
   end
 
   describe "#take_turn" do
